@@ -21,3 +21,9 @@ This is the arkad application rewritten using the flutter framework.
 * Plug your device in to your machine.
 * Navigate to the project directory with a terminal window.
 * run `flutter run` and the app win run on the physical device. 
+
+## Getting started with flutter
+In order to get going with flutter as easy as possible we've come up with a list of material that might be useful for that!
+* Test write an application with [this guide](https://flutter.dev/docs/get-started/codelab)
+* Look through some [sample projects](https://flutter.github.io/samples/#)
+* The [flutter documentation](https://flutter.dev/docs) is very useful, so use it!
