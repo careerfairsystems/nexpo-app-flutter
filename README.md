@@ -1,6 +1,6 @@
 # Arkad Flutter Application
 
-This is the arkad application rewritten using the flutter framework. The goal the development of this applicaiton is to get a very modern look and feel to the Arkad application.
+This is the arkad application rewritten using the flutter framework.
 
 ## Installation
 * Start by installing Flutter. Information regarding the installation of Flutter can be found at flutter.dev. When installing flutter there will be steps to install the other requirements(Android studio and x-code for instance). Make sure to follow those steps.
