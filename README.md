@@ -27,3 +27,4 @@ In order to get going with flutter as easy as possible we've come up with a list
 * Test write an application with [this guide](https://flutter.dev/docs/get-started/codelab)
 * Look through some [sample projects](https://flutter.github.io/samples/#)
 * The [flutter documentation](https://flutter.dev/docs) is very useful, so use it!
+* Consistent naming of files, classes and everything else is very important for readability and understandning of the code. Make sure to [read this guide](https://dart.dev/guides/language/effective-dart/style) before proceeding with development of this application.
