@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../global_colors.dart';
+import '../screens/home/home_screen.dart';
 
 class TabHandler extends StatefulWidget {
   @override
@@ -11,9 +12,7 @@ class _TabHandlerState extends State<TabHandler> {
   int _currentIndex = 0;
 
   final _tabs = [
-    Center(
-      child: Text("Home"),
-    ),
+    HomeScreen(),
     Center(
       child: Text("Map"),
     ),
