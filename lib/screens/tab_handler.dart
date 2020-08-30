@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../global_colors.dart';
 import '../screens/home/home_screen.dart';
+import '../screens/profile/profile_screen.dart';
 
 class TabHandler extends StatefulWidget {
   @override
@@ -19,9 +20,7 @@ class _TabHandlerState extends State<TabHandler> {
     Center(
       child: Text("Companies"),
     ),
-    Center(
-      child: Text("Profile"),
-    ),
+    ProfileScreen(),
     Center(
       child: Text("About"),
     ),
