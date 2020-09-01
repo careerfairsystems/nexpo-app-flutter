@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../global_colors.dart';
+import '../util/global_colors.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/profile/profile_screen.dart';
 

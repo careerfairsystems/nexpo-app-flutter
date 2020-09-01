@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../global_styles.dart';
+import '../../util/global_styles.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
                 onTap: () {
                   print("Open all events");
                 },
-              )
+              ),
             ],
           ),
         ),

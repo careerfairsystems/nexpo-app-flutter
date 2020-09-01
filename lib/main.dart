@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'screens/tab_handler.dart';
-import 'global_colors.dart';
+import 'util/global_colors.dart';
 
 void main() => runApp(MyApp());
 

@@ -10,7 +10,7 @@ class GlobalStyles {
     fontSize: 20,
   );
 
-  static TextStyle buttonStyle = new TextStyle(
+  static TextStyle buttonTextStyle = new TextStyle(
     fontFamily: 'Avenir',
     color: Colors.white,
     fontWeight: FontWeight.bold,
@@ -23,4 +23,14 @@ class GlobalStyles {
     fontWeight: FontWeight.bold,
     fontSize: 16,
   );
+
+  static InputDecoration buildInputDecoration(String hintText, IconData icon) {
+    return InputDecoration(
+      prefixIcon: Icon(icon, color: Color.fromRGBO(50, 62, 72, 1.0)),
+      hintText: hintText,
+      labelText: hintText,
+      contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(30.0)),
+    );
+  }
 }
