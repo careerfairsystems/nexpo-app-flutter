@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nexpo_app_flutter/util/api.dart';
 
 import 'package:nexpo_app_flutter/widgets/Buttons/filled_button.dart';
-import 'package:nexpo_app_flutter/widgets/Form/input_field.dart';
 import '../../util/global_styles.dart';
 import '../../util/global_colors.dart';
 import '../../util/validators.dart';
+import '../../providers/auth_provider.dart';
+import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({Key key}) : super(key: key);
@@ -20,9 +22,13 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     final usernameField = TextFormField(
       autofocus: false,
-      validator: validateEmail,
+      autocorrect: false,
+      //validator: validateEmail,
+      validator: (value) => value.isEmpty ? "Please enter password" : null,
       onSaved: (value) => _username = value,
       decoration: GlobalStyles.buildInputDecoration(
         "E-mail",
@@ -49,6 +55,10 @@ class _LoginFormState extends State<LoginForm> {
         print("User: $_username");
         print("Pass: $_password");
         //Here we write our network login code.
+        final Future<String> loginResult =
+            authProvider.login(_username, _password);
+
+        loginResult.then((value) => print(value));
       }
     };
 
