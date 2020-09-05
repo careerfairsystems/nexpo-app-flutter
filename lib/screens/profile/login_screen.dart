@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/Form/login_form.dart';
 
-class ProfileScreen extends StatefulWidget {
-  ProfileScreen({Key key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  LoginScreen({Key key}) : super(key: key);
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nexpo_app_flutter/util/api.dart';
+import 'package:nexpo_app_flutter/screens/profile/dashboard_screen.dart';
+import 'package:nexpo_app_flutter/util/constants.dart';
 
 import 'package:nexpo_app_flutter/widgets/Buttons/filled_button.dart';
 import '../../util/global_styles.dart';
 import '../../util/global_colors.dart';
 import '../../util/validators.dart';
 import '../../providers/auth_provider.dart';
-import 'package:provider/provider.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({Key key}) : super(key: key);
@@ -22,7 +22,7 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+    AuthProvider authProvider = Constants.authProvider;
 
     final usernameField = TextFormField(
       autofocus: false,
@@ -47,6 +47,11 @@ class _LoginFormState extends State<LoginForm> {
       ),
     );
 
+    var loading = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[CircularProgressIndicator(), Text(" Logging in...")],
+    );
+
     var _handleLogin = () {
       final form = _formKey.currentState;
 
@@ -54,11 +59,25 @@ class _LoginFormState extends State<LoginForm> {
         form.save();
         print("User: $_username");
         print("Pass: $_password");
-        //Here we write our network login code.
-        final Future<String> loginResult =
-            authProvider.login(_username, _password);
 
-        loginResult.then((value) => print(value));
+        authProvider.login(_username, _password).then((res) {
+          if (res == true) {
+            //SWITCH to dashboard
+            Future<String> accessToken =
+                Constants.storage.read(key: "access_token");
+            accessToken.then((value) {
+              print(value);
+            });
+            print("Success!");
+            // Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => DashboardScreen()),
+            //   (Route<dynamic> route) => false,
+            // );
+          } else {
+            print("Failed!");
+          }
+        });
       }
     };
 
@@ -74,12 +93,14 @@ class _LoginFormState extends State<LoginForm> {
           passwordField,
           Container(
             padding: EdgeInsets.symmetric(vertical: 16),
-            child: FilledButton(
-              "Log in",
-              GlobalStyles.buttonTextStyle,
-              GlobalColors.arkadBlue,
-              _handleLogin,
-            ),
+            child: authProvider.loggedInStatus == Status.Authenticating
+                ? loading
+                : FilledButton(
+                    "Log in",
+                    GlobalStyles.buttonTextStyle,
+                    GlobalColors.arkadBlue,
+                    _handleLogin,
+                  ),
           ),
           Row(
             children: <Widget>[

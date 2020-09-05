@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nexpo_app_flutter/screens/profile/dashboard_screen.dart';
+import 'package:nexpo_app_flutter/screens/profile/profile_handler.dart';
 
 import '../util/global_colors.dart';
 import '../screens/home/home_screen.dart';
-import '../screens/profile/profile_screen.dart';
+import 'profile/login_screen.dart';
+import '../util/constants.dart';
+import '../providers/auth_provider.dart';
 
 class TabHandler extends StatefulWidget {
   @override
@@ -20,7 +24,12 @@ class _TabHandlerState extends State<TabHandler> {
     Center(
       child: Text("Companies"),
     ),
-    ProfileScreen(),
+    ProfileHandler(),
+    // Constants.authProvider.loggedInStatus == Status.LoggedIn
+    //     // ? LoginScreen()
+    //     // : DashboardScreen(),
+    //     ? DashboardScreen()
+    //     : LoginScreen(),
     Center(
       child: Text("About"),
     ),
