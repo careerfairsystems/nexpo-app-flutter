@@ -10,6 +10,13 @@ class GlobalStyles {
     fontSize: 20,
   );
 
+  static TextStyle errorStyleLogin = new TextStyle(
+    fontFamily: 'Avenir',
+    color: GlobalColors.arkadRed,
+    fontWeight: FontWeight.bold,
+    fontSize: 20,
+  );
+
   static TextStyle buttonTextStyle = new TextStyle(
     fontFamily: 'Avenir',
     color: Colors.white,

@@ -27,42 +27,13 @@ class User {
     this._email,
   );
 
-  static Future<User> updateStoredUserInformation() async {
-    User u;
-    String accessToken = await Constants.storage.read(key: "access_token");
-    if (accessToken != null) {
-      Response result = await Communicator.sendAuthorizedGetReq(
-          Constants.studentInfoURL, accessToken);
-      Map<String, dynamic> response = json.decode(result.body);
-      await Constants.storage.write(
-        key: "phone_number",
-        value: response['data']['phone_number'],
-      );
-      await Constants.storage
-          .write(key: "first_name", value: response['data']['first_name']);
-      await Constants.storage.write(
-        key: "last_name",
-        value: response['data']['last_name'],
-      );
-      await Constants.storage.write(
-        key: "id",
-        value: response['data']['id'].toString(),
-      );
-      await Constants.storage.write(
-          key: "food_preferences", value: response['data']['food_preferences']);
-      await Constants.storage.write(
-        key: "email",
-        value: response['data']['email'],
-      );
-      u = User(
-        response['data']['phone_number'],
-        response['data']['first_name'],
-        response['data']['last_name'],
-        response['data']['id'],
-        response['data']['food_preferences'],
-        response['data']['email'],
-      );
-    }
-    return u;
+  User.fromJson(Map<String, dynamic> json) {
+    if (json == null) return;
+    this._phoneNumber = json['data']['phone_number'];
+    this._firstName = json['data']['first_name'];
+    this._lastName = json['data']['last_name'];
+    this._id = json['data']['id'];
+    this._foodPreferences = json['data']['food_preferences'];
+    this._email = json['data']['email'];
   }
 }

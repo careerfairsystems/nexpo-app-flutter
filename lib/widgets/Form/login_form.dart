@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:nexpo_app_flutter/screens/profile/dashboard_screen.dart';
-import 'package:nexpo_app_flutter/util/constants.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:nexpo_app_flutter/redux/auth/auth_actions.dart';
+import 'package:nexpo_app_flutter/redux/store.dart';
 
 import 'package:nexpo_app_flutter/widgets/Buttons/filled_button.dart';
 import '../../util/global_styles.dart';
 import '../../util/global_colors.dart';
 import '../../util/validators.dart';
-import '../../providers/auth_provider.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({Key key}) : super(key: key);
@@ -22,8 +22,6 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = Constants.authProvider;
-
     final usernameField = TextFormField(
       autofocus: false,
       autocorrect: false,
@@ -49,7 +47,10 @@ class _LoginFormState extends State<LoginForm> {
 
     var loading = Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[CircularProgressIndicator(), Text(" Logging in...")],
+      children: <Widget>[
+        CircularProgressIndicator(),
+        Text("    Logging in...")
+      ],
     );
 
     var _handleLogin = () {
@@ -57,27 +58,7 @@ class _LoginFormState extends State<LoginForm> {
 
       if (form.validate()) {
         form.save();
-        print("User: $_username");
-        print("Pass: $_password");
-
-        authProvider.login(_username, _password).then((res) {
-          if (res == true) {
-            //SWITCH to dashboard
-            Future<String> accessToken =
-                Constants.storage.read(key: "access_token");
-            accessToken.then((value) {
-              print(value);
-            });
-            print("Success!");
-            // Navigator.pushAndRemoveUntil(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => DashboardScreen()),
-            //   (Route<dynamic> route) => false,
-            // );
-          } else {
-            print("Failed!");
-          }
-        });
+        Redux.store.dispatch(login(Redux.store, _username, _password));
       }
     };
 
@@ -93,14 +74,22 @@ class _LoginFormState extends State<LoginForm> {
           passwordField,
           Container(
             padding: EdgeInsets.symmetric(vertical: 16),
-            child: authProvider.loggedInStatus == Status.Authenticating
-                ? loading
-                : FilledButton(
+            child: StoreConnector<AppState, bool>(
+              distinct: true,
+              converter: (store) => store.state.authState.isAuthenticating,
+              builder: (context, isAuthenticating) {
+                if (!isAuthenticating) {
+                  return FilledButton(
                     "Log in",
                     GlobalStyles.buttonTextStyle,
                     GlobalColors.arkadBlue,
                     _handleLogin,
-                  ),
+                  );
+                } else {
+                  return loading;
+                }
+              },
+            ),
           ),
           Row(
             children: <Widget>[
@@ -124,7 +113,23 @@ class _LoginFormState extends State<LoginForm> {
                 },
               ),
             ],
-          )
+          ),
+          StoreConnector<AppState, bool>(
+            distinct: true,
+            converter: (store) => store.state.authState.isError,
+            builder: (context, isError) {
+              if (isError) {
+                return Container(
+                  height: 80,
+                  alignment: Alignment.center,
+                  child: Text("Login failed!",
+                      style: GlobalStyles.errorStyleLogin),
+                );
+              } else {
+                return SizedBox.shrink();
+              }
+            },
+          ),
         ],
       ),
     );

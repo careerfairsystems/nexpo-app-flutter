@@ -1,4 +1,3 @@
-import 'package:nexpo_app_flutter/providers/auth_provider.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Constants {
@@ -11,5 +10,4 @@ class Constants {
   static const String studentInfoURL = baseURL + "/me";
 
   static FlutterSecureStorage storage;
-  static AuthProvider authProvider;
 }
