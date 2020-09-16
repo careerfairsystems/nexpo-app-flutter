@@ -16,20 +16,17 @@ class SetAuthStateAction {
   SetAuthStateAction(this.authState);
 }
 
-Future pause(Duration d) => new Future.delayed(d);
-
 Future<void> login(Store<AppState> store, String email, String password) async {
   store.dispatch(SetAuthStateAction(AuthState(
     isAuthenticating: true,
     isError: false,
   )));
 
-  print(email);
-  print(password);
   try {
+    //Fetch data
     final response =
         await Communicator.loginReq(Constants.loginURL, email, password);
-    assert(response.statusCode == 200);
+    assert(response.statusCode >= 200 && response.statusCode <= 206);
     final String accessToken = json.decode(response.body)['data']['jwt'];
     await Constants.storage.write(key: "access_token", value: accessToken);
     store.dispatch(fetchUserData(store, accessToken));

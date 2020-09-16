@@ -37,6 +37,7 @@ Future<void> fetchUserData(Store<AppState> store, String accessToken) async {
   } catch (error) {
     store.dispatch(SetUserStateAction(UserState(
       isLoading: false,
+      isError: true,
     )));
   }
 }

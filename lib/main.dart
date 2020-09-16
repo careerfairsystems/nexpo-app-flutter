@@ -21,8 +21,6 @@ void main() async {
     accessToken: _accessToken,
   )));
 
-  print(_accessToken);
-
   runApp(MyApp());
 }
 
