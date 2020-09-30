@@ -10,6 +10,8 @@ class User {
   int _id;
   String _foodPreferences;
   String _email;
+  String _programme;
+  String _year;
 
   String get phoneNumber => _phoneNumber;
   String get firstName => _firstName;
@@ -17,6 +19,8 @@ class User {
   int get id => _id;
   String get foodPreferences => _foodPreferences;
   String get email => _email;
+  String get programme => _programme;
+  String get year => _year;
 
   User(
     this._phoneNumber,
@@ -25,6 +29,8 @@ class User {
     this._id,
     this._foodPreferences,
     this._email,
+    this._programme,
+    this._year,
   );
 
   User.fromJson(Map<String, dynamic> json) {
@@ -35,5 +41,7 @@ class User {
     this._id = json['data']['id'];
     this._foodPreferences = json['data']['food_preferences'];
     this._email = json['data']['email'];
+    this._programme = json['data']['student']['programme'];
+    this._year = json['data']['student']['year'];
   }
 }

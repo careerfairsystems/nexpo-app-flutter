@@ -46,7 +46,12 @@ final appTheme = ThemeData(
     bodyText1: TextStyle(
       fontFamily: 'Avenir',
       fontSize: 16,
-      color: GlobalColors.arkadBlue,
+      color: Colors.grey[800],
+    ),
+    bodyText2: TextStyle(
+      fontFamily: 'Avenir',
+      fontSize: 12,
+      color: Colors.grey[800],
     ),
   ),
 );

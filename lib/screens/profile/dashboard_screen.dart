@@ -10,6 +10,7 @@ import 'package:nexpo_app_flutter/util/global_styles.dart';
 import 'package:nexpo_app_flutter/util/theme.dart';
 import 'package:nexpo_app_flutter/widgets/Buttons/filled_button.dart';
 import 'package:nexpo_app_flutter/models/user.dart';
+import 'package:nexpo_app_flutter/widgets/containers/imagecontainers/profile_image.dart';
 
 class DashboardScreen extends StatelessWidget {
   @override
@@ -37,28 +38,85 @@ class DashboardScreen extends StatelessWidget {
         } else {
           return SingleChildScrollView(
             child: Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.symmetric(vertical: 16),
               child: Column(
                 children: [
-                  Icon(
-                    Icons.person,
-                    size: 160,
-                  ),
-                  Card(
-                    child: SizedBox(
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Text("Name"),
+                  ProfileImage(),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    child: Column(
+                      children: <Widget>[
+                        Text(
+                          userState.user.firstName +
+                              " " +
+                              userState.user.lastName,
+                          style: Theme.of(context).textTheme.headline1,
                         ),
-                        width: double.infinity,
-                        height: 100),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)),
-                    elevation: 10,
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                            userState.user.programme != null
+                                ? userState.user.programme
+                                : "Program information missing",
+                            style: Theme.of(context).textTheme.bodyText1),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                            userState.user.year != null
+                                ? userState.user.year
+                                : "Year information missing",
+                            style: Theme.of(context).textTheme.bodyText2),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    constraints: BoxConstraints.expand(height: 200),
+                    child: ListView(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 25, horizontal: 16),
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Card(
+                          child: Container(child: Text('Test'), width: 100),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          elevation: 5,
+                          color: Colors.white,
+                        ),
+                        Card(
+                          child: Container(child: Text('Test'), width: 100),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          elevation: 5,
+                          color: Colors.white,
+                        ),
+                        Card(
+                          child: Container(child: Text('Test'), width: 100),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          elevation: 5,
+                          color: Colors.white,
+                        ),
+                        Card(
+                          child: Container(child: Text('Test'), width: 100),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30)),
+                          elevation: 5,
+                          color: Colors.white,
+                        ),
+
+                        //This is where we will put the Event cards..
+                      ],
+                    ),
                   ),
                   SizedBox(height: 25),
-                  FilledButton("Logout", GlobalStyles.buttonTextStyle,
-                      GlobalColors.arkadBlue, _logout),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: FilledButton("Logout", GlobalStyles.buttonTextStyle,
+                        GlobalColors.arkadBlue, _logout),
+                  ),
                 ],
               ),
             ),
