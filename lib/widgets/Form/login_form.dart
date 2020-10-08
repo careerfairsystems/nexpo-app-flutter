@@ -25,8 +25,7 @@ class _LoginFormState extends State<LoginForm> {
     final usernameField = TextFormField(
       autofocus: false,
       autocorrect: false,
-      //validator: validateEmail,
-      validator: (value) => value.isEmpty ? "Please enter password" : null,
+      validator: validateEmail,
       onSaved: (value) => _username = value,
       decoration: GlobalStyles.buildInputDecoration(
         "E-mail",
