@@ -29,12 +29,18 @@ class DashboardScreen extends StatelessWidget {
       builder: (context, userState) {
         if (userState.isLoading) {
           return _loading;
+        } else if (userState.isError) {
+          return Column(
+            children: [
+              Text("There was an error loading user info"),
+              FilledButton("Go Back", GlobalStyles.buttonTextStyle,
+                  GlobalColors.arkadBlue, _logout)
+            ],
+          );
         } else if (userState.user == null) {
           Redux.store.dispatch(fetchUserData(
               Redux.store, Redux.store.state.authState.accessToken));
           return _loading;
-        } else if (userState.isError) {
-          return Text("There was an error loading user info");
         } else {
           return SingleChildScrollView(
             child: Container(
@@ -79,7 +85,10 @@ class DashboardScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       children: [
                         Card(
-                          child: Container(child: Text('Test'), width: 100),
+                          child: Container(
+                              child: Text(
+                                  userState.user.applications[0].company.name),
+                              width: 100),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30)),
                           elevation: 5,

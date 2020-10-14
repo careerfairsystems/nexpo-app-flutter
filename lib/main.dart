@@ -13,6 +13,7 @@ void main() async {
   await Redux.init();
   WidgetsFlutterBinding.ensureInitialized();
   Constants.storage = FlutterSecureStorage();
+  Constants.storage.deleteAll();
   var _accessToken = await Constants.storage.read(key: "access_token");
   if (_accessToken == null) {
     _accessToken = "";
